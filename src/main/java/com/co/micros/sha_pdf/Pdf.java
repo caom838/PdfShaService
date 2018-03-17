@@ -1,7 +1,13 @@
 package com.co.micros.sha_pdf;
 
-public class Pdf {
+import java.io.Serializable;
+
+public class Pdf implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String sha;
 	

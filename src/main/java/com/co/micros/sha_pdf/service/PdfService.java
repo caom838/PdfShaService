@@ -1,8 +1,10 @@
-package com.co.micros.sha_pdf;
+package com.co.micros.sha_pdf.service;
 
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
+
+import com.co.micros.sha_pdf.Pdf;
 
 @Service
 public class PdfService implements IPdfService {
