@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.commons.net.ftp.FTPFile;
 import org.bouncycastle.jcajce.provider.digest.SHA3;
 import org.bouncycastle.util.encoders.Hex;
 
@@ -21,5 +22,7 @@ public class Sha3Utils {
 
 		return Hex.toHexString(digest);
 	}
+	
+
 
 }

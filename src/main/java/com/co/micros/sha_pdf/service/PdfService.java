@@ -24,9 +24,10 @@ public class PdfService implements IPdfService {
 		
 		for(FTPFile f : files)
 		{
-			InputStream iStream=f.retrieveFileStream(f.getName());	
-			File file = File.createTempFile("tmp", null);
-			FileUtils.copyInputStreamToFile(iStream, file);
+			
+//			InputStream iStream=f.retrieveFileStream(f.getName());	
+//			File file = File.createTempFile("tmp", null);
+//			FileUtils.copyInputStreamToFile(iStream, file);
 		}
 		
 		return null;

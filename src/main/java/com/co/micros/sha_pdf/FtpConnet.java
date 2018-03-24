@@ -18,6 +18,8 @@ public class FtpConnet {
 	private static String hostName;
 	private static String user;
 	private static String pass;
+	private static String pdfLocalFolder;
+	private static String pdfFtpFolder;
 	
 	 public static void putFiles() {
 	        FTPClient client = new FTPClient();
@@ -88,7 +90,7 @@ public class FtpConnet {
 	            //get system name
 	            System.out.println("Remote system is " + ftp.getSystemType());
 	            //change current directory
-	            ftp.changeWorkingDirectory("/");
+	            ftp.changeWorkingDirectory(pdfFtpFolder);
 	            System.out.println("Current directory is " + ftp.printWorkingDirectory());
 
 	            //get list of filenames
@@ -103,7 +105,7 @@ public class FtpConnet {
 	                    System.out.println("File is " + file.getName());
 	                    //get output stream
 	                    OutputStream output;
-	                    output = new FileOutputStream("FtpFiles" + "/" + file.getName());
+	                    output = new FileOutputStream(pdfLocalFolder + "/" + file.getName());
 	                    //get the file from the remote system
 	                    ftp.retrieveFile(file.getName(), output);
 	                    //close output stream
@@ -136,6 +138,8 @@ public class FtpConnet {
 		      user =p.getProperty("User");
 		      pass =p.getProperty("Pass");
 		      
+		      pdfLocalFolder =p.getProperty("pdfLocalFolder");
+		      pdfFtpFolder =p.getProperty("pdfFTPFolder");
 		      
 		    } catch (IOException e) {
 		      throw e;

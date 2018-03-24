@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.supercsv.io.CsvBeanWriter;
@@ -16,6 +17,7 @@ import com.co.micros.sha_pdf.Pdf;
 import com.co.micros.sha_pdf.service.IPdfService;
 
 @RestController
+@RequestMapping("v1/pdf")
 public class ShaPdfController {
 
 	 @Autowired
@@ -26,9 +28,9 @@ public class ShaPdfController {
 	
 //	@POST
 //	@Path("/generateCSV")
-//	@Produces("text/csv")
-	 @RequestMapping("/generate")
-	public void generateCsv(HttpServletResponse response) throws IOException {	
+	//@Produces("text/csv")
+	@GetMapping(path="/generate",produces="text/csv")
+	public void generateCsv(HttpServletResponse response ) throws IOException {	
 	
 		ArrayList<Pdf> pdfs;
 		pdfs = pdfService.findAll();
