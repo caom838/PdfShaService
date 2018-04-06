@@ -24,5 +24,14 @@ public class Sha3Utils {
 	}
 	
 
+	static String calculate(InputStream targetStream) throws IOException {
+
+		SHA3.DigestSHA3 digestSHA3 = new SHA3.Digest256();
+		byte[] bytes = ByteStreams.toByteArray(targetStream);
+		byte[] digest = digestSHA3.digest(bytes);
+
+		return Hex.toHexString(digest);
+	}
+	
 
 }

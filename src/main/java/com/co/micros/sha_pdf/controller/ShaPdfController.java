@@ -2,6 +2,7 @@ package com.co.micros.sha_pdf.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,16 +24,15 @@ public class ShaPdfController {
 	 @Autowired
 	 private IPdfService pdfService;
 	
-	 
-	
-	
-//	@POST
-//	@Path("/generateCSV")
-	//@Produces("text/csv")
+	 /**
+	  * Método que expone servicio para consultar el directorio FTP y devolverá un csv con el nombre del archivo y su SHA-3
+	  * @param response
+	  * @throws IOException
+	  */
 	@GetMapping(path="/generate",produces="text/csv")
 	public void generateCsv(HttpServletResponse response ) throws IOException {	
 	
-		ArrayList<Pdf> pdfs;
+		List<Pdf> pdfs;
 		pdfs = pdfService.findAll();
 		
 		 // uses the Super CSV API to generate CSV data from the model data

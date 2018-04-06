@@ -26,5 +26,15 @@ public class Pdf implements Serializable{
 	}
 	
 	
+	public Pdf() {
+		super();
+	}
+	public Pdf(String name, String sha) {
+		super();
+		this.name = name;
+		this.sha = sha;
+	}
+	
+	
 
 }

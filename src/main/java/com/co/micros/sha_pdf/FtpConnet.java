@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.net.ftp.FTP;
@@ -63,9 +66,10 @@ public class FtpConnet {
 	        }
 	    }
 	 
-	 public static FTPFile[] getFilesFtp() {
+	 public static List<Pdf> getFilesFtp() {
 	        
 		 FTPFile[] filesInFtp = new FTPFile[0];
+		 List<Pdf> listPdf = new ArrayList<Pdf>();
 		 
 		 try {
 
@@ -104,12 +108,18 @@ public class FtpConnet {
 	                    }
 	                    System.out.println("File is " + file.getName());
 	                    //get output stream
-	                    OutputStream output;
-	                    output = new FileOutputStream(pdfLocalFolder + "/" + file.getName());
-	                    //get the file from the remote system
-	                    ftp.retrieveFile(file.getName(), output);
+//	                    OutputStream output;
+//	                    output = new FileOutputStream(pdfLocalFolder + "/" + file.getName());
+//	                    //get the file from the remote system
+//	                    ftp.retrieveFile(file.getName(), output);
+	                    
+	                    InputStream is = ftp.retrieveFileStream(file.getName());
+	                    String pdfSha = Sha3Utils.calculate(is);
+	                    //se agrega
+	                    listPdf.add(new Pdf(file.getName(), pdfSha));
 	                    //close output stream
-	                    output.close();
+	                    //is.close();
+	                    //output.close();
 
 	                    //delete the file
 	                    // ftp.deleteFile(file.getName());
@@ -124,7 +134,7 @@ public class FtpConnet {
 	        } catch (Exception ex) {
 	            ex.printStackTrace();
 	        }
-			return filesInFtp;
+			return listPdf;
 	    }
 	 
 	 private static void readProperties() throws IOException

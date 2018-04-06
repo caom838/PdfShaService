@@ -16,21 +16,13 @@ import com.co.micros.sha_pdf.Pdf;
 public class PdfService implements IPdfService {
 
 	
-	public ArrayList<Pdf> findAll() {
+	public List<Pdf> findAll() {
 		
-		FTPFile[] files = FtpConnet.getFilesFtp();
-		List<Pdf> pdfs = new ArrayList<Pdf>();
+		List<Pdf> pdfs  = FtpConnet.getFilesFtp();
 		
+		//pdfs.add(new Pdf("baseFormatoVerSolicitudViatico_110.pdf", "0509489da5767a5675hhhs9884d001351e76362b5be0568c0c3b9c44e662625a"));
 		
-		for(FTPFile f : files)
-		{
-			
-//			InputStream iStream=f.retrieveFileStream(f.getName());	
-//			File file = File.createTempFile("tmp", null);
-//			FileUtils.copyInputStreamToFile(iStream, file);
-		}
-		
-		return null;
+		return pdfs;
 	}
 	
 	
