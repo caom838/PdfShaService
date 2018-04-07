@@ -2,10 +2,8 @@ package com.co.micros.sha_pdf;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,13 +68,13 @@ public class FtpConnet {
 	        
 		 FTPFile[] filesInFtp = new FTPFile[0];
 		 List<Pdf> listPdf = new ArrayList<Pdf>();
-		 
+		 FTPClient ftp = new FTPClient();
+         
 		 try {
 
 	        	readProperties();
 	        	
-	            //new ftp client
-	            FTPClient ftp = new FTPClient();
+	            
 	            //try to connect
 	            ftp.connect(hostName);
 	            //login to server
@@ -107,22 +105,19 @@ public class FtpConnet {
 	                        continue;
 	                    }
 	                    System.out.println("File is " + file.getName());
-	                    //get output stream
-//	                    OutputStream output;
-//	                    output = new FileOutputStream(pdfLocalFolder + "/" + file.getName());
-//	                    //get the file from the remote system
-//	                    ftp.retrieveFile(file.getName(), output);
-	                    
+	                    //get input stream
+                    
 	                    InputStream is = ftp.retrieveFileStream(file.getName());
-	                    String pdfSha = Sha3Utils.calculate(is);
-	                    //se agrega
+	                    if(is != null){
+	                    	String pdfSha = Sha3Utils.calculate(is);
+	                    	//se agrega
 	                    listPdf.add(new Pdf(file.getName(), pdfSha));
+	                    }
 	                    //close output stream
-	                    //is.close();
-	                    //output.close();
+	                    is.close();
+	                    while(!ftp.completePendingCommand());
+	                    
 
-	                    //delete the file
-	                    // ftp.deleteFile(file.getName());
 
 	                }
 	            }
@@ -134,6 +129,13 @@ public class FtpConnet {
 	        } catch (Exception ex) {
 	            ex.printStackTrace();
 	        }
+			finally {
+		         try {
+		             ftp.disconnect();
+		         } catch (IOException e) {
+		             e.printStackTrace();
+		         }
+		     }
 			return listPdf;
 	    }
 	 
